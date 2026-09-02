@@ -622,9 +622,9 @@ export default function TerminalW() {
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: COLORS.cyan, display: "inline-block", boxShadow: `0 0 8px ${COLORS.cyan}` }} />
               SYS.STATUS — CREATORS OF PEERUP & TEACHER MANAGEMENT SYSTEM
             </div>
-            <h1 className="h-display" style={{ fontSize: "clamp(42px, 5vw, 64px)", lineHeight: 1.04, fontWeight: 700, margin: "0 0 26px" }}>
+            <h1 className="h-display" style={{ fontSize: "clamp(42px, 5vw, 64px)", lineHeight: 1.04, fontWeight: 700, margin: "0 0 26px", color: COLORS.text }}>
               Engineering<br />
-              <span style={{ background: isDarkMode ? "linear-gradient(135deg, #F3F5F8 30%, #8890A0 100%)" : "linear-gradient(135deg, #0F172A 30%, #475569 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              <span className={isDarkMode ? "gradient-text-dark" : "gradient-text-light"}>
                 what's next.
               </span>
             </h1>

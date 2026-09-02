@@ -63,6 +63,26 @@ body {
   letter-spacing: -0.01em;
 }
 
+.gradient-text-dark {
+  background: linear-gradient(135deg, #F3F5F8 30%, #8890A0 100%);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  color: #F3F5F8;
+}
+
+.gradient-text-light {
+  background: linear-gradient(135deg, #0F172A 30%, #475569 100%);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  color: #0F172A;
+}
+
 .font-mono {
   font-family: 'IBM Plex Mono', monospace;
 }
