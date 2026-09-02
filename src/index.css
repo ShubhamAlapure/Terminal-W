@@ -236,30 +236,104 @@ a {
   border: 1px solid var(--border);
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments for Tablets & Mobile Phones */
 @media (max-width: 900px) {
   .container {
-    padding: 0 20px;
+    padding: 0 20px !important;
   }
+  
   .desktop-nav {
     display: none !important;
   }
-  .hero-grid {
-    grid-template-columns: 1fr !important;
+
+  .mobile-menu-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
   }
-  .grid-3 {
-    grid-template-columns: 1fr !important;
-  }
-  .grid-2 {
-    grid-template-columns: 1fr !important;
-  }
-  .grid-4 {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-  .grid-5 {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
+
+  /* Force all multi-column grids to stack vertically on mobile */
+  .hero-grid,
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .grid-5,
   .grid-6 {
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  /* Adjust process items grid on mobile */
+  .grid-6 > div {
+    border-left: none !important;
+    border-top: 1px solid var(--border) !important;
+    padding: 20px 0 0 0 !important;
+  }
+  
+  .grid-6 > div:first-child {
+    border-top: none !important;
+  }
+
+  /* Reduce section vertical paddings on mobile */
+  section {
+    padding-top: 56px !important;
+    padding-bottom: 56px !important;
+  }
+
+  .hero-grid {
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+  }
+
+  /* Adjust headings on mobile */
+  .h-display {
+    word-break: break-word;
+  }
+
+  h1.h-display {
+    font-size: clamp(32px, 8vw, 44px) !important;
+    line-height: 1.1 !important;
+  }
+
+  h2.h-display {
+    font-size: clamp(24px, 6.5vw, 32px) !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* Hero canvas height on mobile */
+  .hero-canvas-container {
+    height: 280px !important;
+  }
+
+  /* Marquee track spacing */
+  .marquee-track {
+    gap: 36px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 540px) {
+  .container {
+    padding: 0 16px !important;
+  }
+
+  /* Stack action buttons vertically on mobile phones */
+  .mobile-stack-btns {
+    flex-direction: column !important;
+  }
+
+  .mobile-stack-btns .cta-btn,
+  .mobile-stack-btns .ghost-btn,
+  .mobile-stack-btns button,
+  .mobile-stack-btns a {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* Log entries text wrapping on small phones */
+  .log-entry-text {
+    white-space: normal !important;
+    font-size: 12px !important;
   }
 }

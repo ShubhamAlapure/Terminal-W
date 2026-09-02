@@ -411,7 +411,7 @@ function TeacherManagementDemoWidget({ COLORS }) {
                 }}>
                   {log.type}
                 </span>
-                <span style={{ fontSize: 13, color: COLORS.text, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                <span className="log-entry-text" style={{ fontSize: 13, color: COLORS.text, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                   {log.text}
                 </span>
               </div>
@@ -631,7 +631,7 @@ export default function TerminalW() {
             <p style={{ fontSize: 18, color: COLORS.muted, lineHeight: 1.6, maxWidth: 480, margin: "0 0 36px" }}>
               Terminal W Technologies builds high-performance software platforms like <strong>PeerUP</strong> and the <strong>Teacher Lifecycle Management System</strong> that help organizations solve complex problems, operate smarter, and scale faster.
             </p>
-            <div style={{ display: "flex", gap: 14, marginBottom: 44, flexWrap: "wrap" }}>
+            <div className="mobile-stack-btns" style={{ display: "flex", gap: 14, marginBottom: 44, flexWrap: "wrap" }}>
               <a href="#products" className="cta-btn" style={{ textDecoration: "none" }}>Explore Live Products</a>
               <a href="#contact" className="ghost-btn" style={{ textDecoration: "none", color: COLORS.text, borderColor: COLORS.borderStrong }}>Start a project</a>
             </div>
@@ -641,7 +641,7 @@ export default function TerminalW() {
           </div>
 
           {/* Three.js Canvas Container */}
-          <div ref={heroRef} style={{ width: "100%", height: 460, cursor: "grab" }} />
+          <div ref={heroRef} className="hero-canvas-container" style={{ width: "100%", height: 460, cursor: "grab" }} />
         </div>
       </header>
 
@@ -801,7 +801,7 @@ export default function TerminalW() {
               </div>
             ))}
           </div>
-          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+          <div className="mobile-stack-btns" style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
             <a href="https://github.com/ShubhamAlapure/PeerUP" target="_blank" rel="noreferrer" className="cta-btn" style={{ textDecoration: "none" }}>
               Explore PeerUP on GitHub ↗
             </a>
@@ -871,7 +871,7 @@ export default function TerminalW() {
               </div>
             ))}
           </div>
-          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+          <div className="mobile-stack-btns" style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
             <a href="https://teacher-management-system-chi.vercel.app/" target="_blank" rel="noreferrer" className="cta-btn" style={{ textDecoration: "none" }}>
               Launch Live App Demo ↗
             </a>
