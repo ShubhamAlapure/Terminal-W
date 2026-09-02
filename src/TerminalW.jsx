@@ -298,7 +298,7 @@ function TerminalWLogo({ showSubtitle = true, size = 32, COLORS }) {
 // Interactive Teacher Management System Faculty Operations Simulator Widget
 function TeacherManagementDemoWidget({ COLORS }) {
   const [logs, setLogs] = useState([
-    { id: 1, type: "FACULTY_VERIFIED", text: "Prof. S. Alapure registered to Department of Computer Science", time: "10:14:01" },
+    { id: 1, type: "FACULTY_VERIFIED", text: "Dr. A. V. Sharma registered to Department of Computer Science", time: "10:14:01" },
     { id: 2, type: "WORKLOAD_ALIGNED", text: "Allocated CS-401 (DBMS) & CS-401L Lab — 16 Credit Hours/wk", time: "10:14:02" },
     { id: 3, type: "RESEARCH_LOGGED", text: "IEEE Paper & Indian Patent #2026-CS-991 added to annual appraisal", time: "10:14:03" },
   ]);
