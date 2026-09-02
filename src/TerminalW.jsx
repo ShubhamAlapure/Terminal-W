@@ -35,14 +35,17 @@ const PRODUCTS = [
   },
   {
     idx: "P.02",
-    id: "cortex",
-    name: "Cortex",
-    category: "AI / Automation",
-    desc: "An intelligent workflow layer that routes, summarizes, and acts on operational data across existing business tools.",
-    caps: ["Workflow automation", "LLM-assisted triage", "Audit trail", "Integrations API"],
-    status: "In active build",
-    metrics: "4.2x Faster Response Time",
-    details: "Cortex connects to Slack, GitHub, Jira, and CRM endpoints to automate complex triage and task routing using fine-tuned models.",
+    id: "teacher-management",
+    name: "Teacher Management System",
+    category: "Higher Ed / Faculty Operations",
+    desc: "A comprehensive university faculty lifecycle operating platform for managing teacher profiles, automated workload distribution, research publications, and appraisals.",
+    caps: ["Faculty onboarding", "Workload allocation", "Research & patent log", "Performance appraisal", "Multi-department access"],
+    status: "Live Production Platform",
+    metrics: "100% Automated Academic Workflows",
+    details: "Built for higher education institutions like MIT-ADT University, the Teacher Lifecycle Management System unifies faculty records, automated subject & credit hour allocations, research paper tracking, and promotion workflows.",
+    githubUrl: "https://github.com/ShubhamAlapure/teacher_management_system",
+    demoUrl: "https://teacher-management-system-chi.vercel.app/",
+    featured: true,
   },
   {
     idx: "P.03",
@@ -114,7 +117,7 @@ const WHY = [
 
 const METRICS = [
   { label: "Active PeerUP Users & Connections", value: 10, prefix: "", suffix: "k+" },
-  { label: "Products in build", value: 12, prefix: "", suffix: "+" },
+  { label: "Faculty Records & Operations Managed", value: 100, prefix: "", suffix: "%" },
   { label: "Technologies in active use", value: 24, prefix: "", suffix: "+" },
   { label: "Engineers and designers", value: 45, prefix: "", suffix: "+" },
 ];
@@ -238,12 +241,12 @@ function Eyebrow({ children }) {
   );
 }
 
-// Interactive Cortex Triage Demo Widget
-function CortexDemoWidget() {
+// Interactive Teacher Management System Faculty Operations Simulator Widget
+function TeacherManagementDemoWidget() {
   const [logs, setLogs] = useState([
-    { id: 1, type: "EVENT", text: "Customer escalation #1042 received from Zendesk", time: "12:44:01" },
-    { id: 2, type: "AI_ANALYSIS", text: "Cortex LLM classified issue as High Priority (Billing API latency)", time: "12:44:02" },
-    { id: 3, type: "ACTION", text: "Routed ticket to #dev-oncall & updated Linear issue #ENG-882", time: "12:44:03" },
+    { id: 1, type: "FACULTY_VERIFIED", text: "Prof. S. Alapure registered to Department of Computer Science", time: "10:14:01" },
+    { id: 2, type: "WORKLOAD_ALIGNED", text: "Allocated CS-401 (DBMS) & CS-401L Lab — 16 Credit Hours/wk", time: "10:14:02" },
+    { id: 3, type: "RESEARCH_LOGGED", text: "IEEE Paper & Indian Patent #2026-CS-991 added to annual appraisal", time: "10:14:03" },
   ]);
   const [simulating, setSimulating] = useState(false);
 
@@ -253,23 +256,23 @@ function CortexDemoWidget() {
     const timeStr = new Date().toLocaleTimeString();
     
     let newLogs = [];
-    if (preset === "devops") {
+    if (preset === "onboarding") {
       newLogs = [
-        { id: Date.now(), type: "EVENT", text: "AWS CloudWatch Alert: Spike in 500 errors on /api/v1/auth", time: timeStr },
-        { id: Date.now() + 1, type: "AI_ANALYSIS", text: "Cortex isolated root cause to DB connection pool exhaustion", time: timeStr },
-        { id: Date.now() + 2, type: "ACTION", text: "Triggered auto-scaling policy & notified SRE team lead", time: timeStr },
+        { id: Date.now(), type: "FACULTY_VERIFIED", text: "New Faculty Profile: Dr. R. Kulkarni onboarded to IT Department", time: timeStr },
+        { id: Date.now() + 1, type: "CREDENTIALS_SYNC", text: "PhD & Master credentials verified against University HR database", time: timeStr },
+        { id: Date.now() + 2, type: "ROLES_ASSIGNED", text: "Granted Associate Professor & Senior Research Advisor access", time: timeStr },
       ];
-    } else if (preset === "sales") {
+    } else if (preset === "workload") {
       newLogs = [
-        { id: Date.now(), type: "EVENT", text: "Inbound Enterprise Lead from ACME Corp ($120k ARR)", time: timeStr },
-        { id: Date.now() + 1, type: "AI_ANALYSIS", text: "Enriched lead via Clearbit & scored intent at 98/100", time: timeStr },
-        { id: Date.now() + 2, type: "ACTION", text: "Scheduled intro call & populated Salesforce opportunity", time: timeStr },
+        { id: Date.now(), type: "SUBJECT_ASSIGNED", text: "Assigned CS-502 (Distributed Systems & Cloud Computing - 4 Credits)", time: timeStr },
+        { id: Date.now() + 1, type: "LAB_ALLOCATION", text: "Allocated CS-502L Practical Sessions (Batch A1 & A2 - 4 Hours/wk)", time: timeStr },
+        { id: Date.now() + 2, type: "COMPLIANCE_PASS", text: "Total Faculty Workload: 16 Hours/wk — 100% AICTE/UGC Compliant", time: timeStr },
       ];
     } else {
       newLogs = [
-        { id: Date.now(), type: "EVENT", text: "Incoming user refund request via Intercom", time: timeStr },
-        { id: Date.now() + 1, type: "AI_ANALYSIS", text: "Verified transaction history & SLA policy compliance", time: timeStr },
-        { id: Date.now() + 2, type: "ACTION", text: "Auto-approved refund ($49.00) & sent confirmation email", time: timeStr },
+        { id: Date.now(), type: "PAPER_LOGGED", text: "IEEE Transactions Paper #9941 verified by University R&D Cell", time: timeStr },
+        { id: Date.now() + 1, type: "PATENT_RECORDED", text: "AI Academic Scheduling Patent application filed & indexed", time: timeStr },
+        { id: Date.now() + 2, type: "APPRAISAL_EVAL", text: "Annual Performance Appraisal Index score updated to Tier 1 (96/100)", time: timeStr },
       ];
     }
 
@@ -295,27 +298,27 @@ function CortexDemoWidget() {
             <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#27C93F" }} />
           </div>
           <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: COLORS.cyan, fontWeight: 500 }}>
-            cortex.live-operating-view v2.4
+            tlms.faculty-portal v3.2 (MIT-ADT University Pune)
           </span>
         </div>
         <div style={{ display: "flex", gap: 8 }}>
           <span style={{ fontSize: 11, fontFamily: "'IBM Plex Mono', monospace", color: COLORS.green, background: "rgba(16, 185, 129, 0.1)", padding: "2px 8px", borderRadius: 12, border: "1px solid rgba(16, 185, 129, 0.3)" }}>
-            ● RUNNING
+            ● LIVE PLATFORM
           </span>
         </div>
       </div>
 
       {/* Control Buttons */}
       <div style={{ padding: "14px 18px", background: "rgba(14, 16, 22, 0.5)", borderBottom: `1px solid ${COLORS.border}`, display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
-        <span style={{ fontSize: 12, color: COLORS.mutedDim, fontFamily: "'IBM Plex Mono', monospace" }}>Trigger Event:</span>
-        <button onClick={() => runSimulation("devops")} className="ghost-btn" style={{ padding: "6px 12px", fontSize: 12, borderRadius: 4 }}>
-          ⚡ DevOps Alert
+        <span style={{ fontSize: 12, color: COLORS.mutedDim, fontFamily: "'IBM Plex Mono', monospace" }}>Test Workflow:</span>
+        <button onClick={() => runSimulation("onboarding")} className="ghost-btn" style={{ padding: "6px 12px", fontSize: 12, borderRadius: 4 }}>
+          👨‍🏫 Faculty Onboarding
         </button>
-        <button onClick={() => runSimulation("sales")} className="ghost-btn" style={{ padding: "6px 12px", fontSize: 12, borderRadius: 4 }}>
-          💼 Sales Lead
+        <button onClick={() => runSimulation("workload")} className="ghost-btn" style={{ padding: "6px 12px", fontSize: 12, borderRadius: 4 }}>
+          📚 Workload Allocation
         </button>
-        <button onClick={() => runSimulation("support")} className="ghost-btn" style={{ padding: "6px 12px", fontSize: 12, borderRadius: 4 }}>
-          🛠 Support Refund
+        <button onClick={() => runSimulation("appraisal")} className="ghost-btn" style={{ padding: "6px 12px", fontSize: 12, borderRadius: 4 }}>
+          📊 Appraisal & Research Log
         </button>
       </div>
 
@@ -323,10 +326,10 @@ function CortexDemoWidget() {
       <div style={{ padding: 18, background: COLORS.panel2, minHeight: 210 }}>
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
           <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: COLORS.mutedDim, textTransform: "uppercase" }}>
-            Live Event Triage & Automation Audit Log
+            Faculty Operating System & Academic Operations Log
           </span>
           <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: COLORS.cyan }}>
-            {simulating ? "Processing event stream..." : "System idle & listening"}
+            {simulating ? "Updating academic ledger..." : "System active & synced"}
           </span>
         </div>
 
@@ -334,7 +337,7 @@ function CortexDemoWidget() {
           {logs.map((log) => (
             <div key={log.id} style={{
               background: COLORS.bg,
-              border: `1px solid ${log.type === 'EVENT' ? COLORS.border : log.type === 'AI_ANALYSIS' ? COLORS.blueDim : 'rgba(16, 185, 129, 0.3)'}`,
+              border: `1px solid ${log.type.includes('VERIFIED') || log.type.includes('PASS') ? 'rgba(16, 185, 129, 0.3)' : log.type.includes('RESEARCH') || log.type.includes('PAPER') ? COLORS.blueDim : COLORS.border}`,
               borderRadius: 6,
               padding: "10px 14px",
               display: "flex",
@@ -349,8 +352,8 @@ function CortexDemoWidget() {
                   fontWeight: 600,
                   padding: "3px 6px",
                   borderRadius: 3,
-                  background: log.type === 'EVENT' ? "rgba(255,255,255,0.06)" : log.type === 'AI_ANALYSIS' ? "rgba(42, 106, 240, 0.2)" : "rgba(16, 185, 129, 0.2)",
-                  color: log.type === 'EVENT' ? COLORS.text : log.type === 'AI_ANALYSIS' ? COLORS.cyan : COLORS.green,
+                  background: log.type.includes('PASS') || log.type.includes('VERIFIED') ? "rgba(16, 185, 129, 0.2)" : "rgba(42, 106, 240, 0.2)",
+                  color: log.type.includes('PASS') || log.type.includes('VERIFIED') ? COLORS.green : COLORS.cyan,
                 }}>
                   {log.type}
                 </span>
@@ -503,7 +506,7 @@ export default function TerminalW() {
           <div>
             <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: COLORS.cyan, marginBottom: 20, display: "flex", alignItems: "center", gap: 10 }}>
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: COLORS.cyan, display: "inline-block", boxShadow: "0 0 8px #00D4C8" }} />
-              SYS.STATUS — CREATORS OF PEERUP & ENTERPRISE PRODUCTS
+              SYS.STATUS — CREATORS OF PEERUP & TEACHER MANAGEMENT SYSTEM
             </div>
             <h1 className="h-display" style={{ fontSize: "clamp(42px, 5vw, 64px)", lineHeight: 1.04, fontWeight: 700, margin: "0 0 26px" }}>
               Engineering<br />
@@ -512,10 +515,10 @@ export default function TerminalW() {
               </span>
             </h1>
             <p style={{ fontSize: 18, color: COLORS.muted, lineHeight: 1.6, maxWidth: 480, margin: "0 0 36px" }}>
-              Terminal W Technologies builds high-performance software products like <strong>PeerUP</strong> and intelligent digital solutions that help organizations solve complex problems, operate smarter, and scale faster.
+              Terminal W Technologies builds high-performance software platforms like <strong>PeerUP</strong> and the <strong>Teacher Lifecycle Management System</strong> that help organizations solve complex problems, operate smarter, and scale faster.
             </p>
             <div style={{ display: "flex", gap: 14, marginBottom: 44, flexWrap: "wrap" }}>
-              <a href="#products" className="cta-btn" style={{ textDecoration: "none" }}>Explore PeerUP & Products</a>
+              <a href="#products" className="cta-btn" style={{ textDecoration: "none" }}>Explore Live Products</a>
               <a href="#contact" className="ghost-btn" style={{ textDecoration: "none" }}>Start a project</a>
             </div>
             <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: COLORS.mutedDim, letterSpacing: "0.02em" }}>
@@ -533,7 +536,7 @@ export default function TerminalW() {
         <div className="marquee-track" style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, color: COLORS.mutedDim }}>
           {[...Array(2)].map((_, r) => (
             <React.Fragment key={r}>
-              {["PeerUP — Peer Learning Platform", "Product engineering", "AI and machine learning", "Full-stack development", "Cloud and APIs", "Data and analytics"].map((c) => (
+              {["Teacher Management System", "PeerUP Learning Network", "Product engineering", "AI and machine learning", "Full-stack development", "Cloud and APIs"].map((c) => (
                 <span key={c + r} style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <span style={{ width: 5, height: 5, background: COLORS.cyan, borderRadius: "50%", display: "inline-block" }} />
                   {c}
@@ -554,7 +557,7 @@ export default function TerminalW() {
         </div>
         <div>
           <p style={{ fontSize: 17, color: COLORS.muted, lineHeight: 1.75, margin: "0 0 24px" }}>
-            Terminal W Technologies is a software solutions and product engineering company focused on building meaningful digital experiences, intelligent systems, and scalable technology products — including our flagship platform <strong>PeerUP</strong>.
+            Terminal W Technologies is a software solutions and product engineering company focused on building meaningful digital experiences, intelligent systems, and scalable technology platforms — including <strong>PeerUP</strong> and the <strong>Teacher Management System</strong>.
           </p>
           <p style={{ fontSize: 17, color: COLORS.muted, lineHeight: 1.75, margin: "0 0 32px" }}>
             We work across software products, custom platforms, AI solutions, web and mobile applications, data-driven systems, enterprise technology, and automation — treating every engagement as a product to be engineered, not a ticket to be closed.
@@ -574,7 +577,7 @@ export default function TerminalW() {
               Products built to make an impact.
             </h2>
             <p style={{ color: COLORS.muted, fontSize: 15, maxWidth: 340, margin: 0, lineHeight: 1.6 }}>
-              From open peer-learning platforms like <strong>PeerUP</strong> to enterprise automation engines, we build technology products designed to scale.
+              From open peer-learning networks like <strong>PeerUP</strong> to institutional platforms like <strong>Teacher Management System</strong>, we build software designed to scale.
             </p>
           </div>
           <div className="grid-4" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24 }}>
@@ -602,10 +605,10 @@ export default function TerminalW() {
                     {p.status}
                   </span>
                 </div>
-                <h3 className="h-display" style={{ fontSize: 24, fontWeight: 600, margin: "0 0 6px", display: "flex", alignItems: "center", gap: 8 }}>
+                <h3 className="h-display" style={{ fontSize: 22, fontWeight: 600, margin: "0 0 6px", display: "flex", alignItems: "center", gap: 8 }}>
                   {p.name}
-                  {p.githubUrl && (
-                    <a href={p.githubUrl} target="_blank" rel="noreferrer" title="View GitHub Repo" style={{ color: COLORS.mutedDim, textDecoration: "none", fontSize: 16 }}>
+                  {p.demoUrl && (
+                    <a href={p.demoUrl} target="_blank" rel="noreferrer" title="Launch Live Product Demo" style={{ color: COLORS.cyan, textDecoration: "none", fontSize: 16 }}>
                       ↗
                     </a>
                   )}
@@ -621,21 +624,32 @@ export default function TerminalW() {
                   ))}
                 </div>
 
-                <div style={{ display: "flex", gap: 10 }}>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   <button 
                     onClick={() => setSelectedProduct(p)}
                     className="ghost-btn"
-                    style={{ flex: 1, justifyContent: "center", fontSize: 13 }}
+                    style={{ flex: 1, justifyContent: "center", fontSize: 12, padding: "8px 10px" }}
                   >
-                    View Product Spec →
+                    Specs →
                   </button>
+                  {p.demoUrl && (
+                    <a 
+                      href={p.demoUrl}
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="cta-btn"
+                      style={{ padding: "8px 12px", fontSize: 12, textDecoration: "none" }}
+                    >
+                      Live Demo ↗
+                    </a>
+                  )}
                   {p.githubUrl && (
                     <a 
                       href={p.githubUrl}
                       target="_blank" 
                       rel="noreferrer"
-                      className="cta-btn"
-                      style={{ padding: "8px 12px", fontSize: 13, textDecoration: "none", background: "rgba(255,255,255,0.08)", color: COLORS.text, border: `1px solid ${COLORS.borderStrong}` }}
+                      className="ghost-btn"
+                      style={{ padding: "8px 10px", fontSize: 12, textDecoration: "none" }}
                     >
                       GitHub ↗
                     </a>
@@ -647,15 +661,15 @@ export default function TerminalW() {
         </div>
       </section>
 
-      {/* FEATURED SPOTLIGHT — PEERUP PLATFORM */}
+      {/* FLAGSHIP SPOTLIGHT — PEERUP PLATFORM */}
       <section className="container grid-2" style={{ padding: "120px 32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
         <div>
-          <Eyebrow>FLAGSHIP PRODUCT SPOTLIGHT — PEERUP</Eyebrow>
+          <Eyebrow>FLAGSHIP PRODUCT — PEERUP</Eyebrow>
           <h2 className="h-display" style={{ fontSize: 38, fontWeight: 700, margin: "0 0 20px" }}>
-            PeerUP — Peer-to-Peer Learning Network
+            PeerUP — Peer Learning Network
           </h2>
           <p style={{ fontSize: 16, color: COLORS.muted, lineHeight: 1.7, margin: "0 0 24px" }}>
-            PeerUP is our original open-access platform designed to revolutionize peer learning. It connects students, developers, and self-taught builders into real-time collaborative study spaces with automated skill matching and project pairing.
+            PeerUP connects students, developers, and self-taught builders into real-time collaborative study spaces with automated skill matching and project pairing.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 36 }}>
             {[
@@ -717,31 +731,43 @@ export default function TerminalW() {
         </div>
       </section>
 
-      {/* CORTEX LIVE INTERACTIVE DEMO */}
+      {/* TEACHER MANAGEMENT SYSTEM — LIVE INTERACTIVE DEMO (REPLACED CORTEX) */}
       <section className="container grid-2" style={{ padding: "120px 32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
         <div>
-          <Eyebrow>ENTERPRISE AI — CORTEX ENGINE</Eyebrow>
+          <Eyebrow>ACADEMIC OPERATING SYSTEM — TEACHER MANAGEMENT</Eyebrow>
           <h2 className="h-display" style={{ fontSize: 36, fontWeight: 600, margin: "0 0 20px" }}>
-            Cortex Workflow Engine
+            Teacher Lifecycle Management System
           </h2>
           <p style={{ fontSize: 16, color: COLORS.muted, lineHeight: 1.7, margin: "0 0 24px" }}>
-            Most teams run on five disconnected tools and a Slack channel that's really the source of truth. Cortex sits across your existing stack, reads what's happening, and turns it into action — routed tasks, summarized threads, flagged exceptions.
+            Built for higher education universities (like MIT-ADT University Pune), the Teacher Lifecycle Management System unifies faculty records, automated subject & credit hour allocations, research paper tracking, and annual appraisal workflows.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 36 }}>
-            {["Workflow automation", "LLM-assisted triage", "Full audit trail", "Role-based access", "Slack & Jira hooks", "Instant SLA alerts"].map((f) => (
+            {[
+              "Faculty Profile & Credential Sync", 
+              "Automated Subject & Lab Allocations", 
+              "Research Papers & Patent Log", 
+              "Annual Appraisal Workflows", 
+              "Multi-Department & HOD Access", 
+              "AICTE / UGC Norms Compliance"
+            ].map((f) => (
               <div key={f} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 14, color: COLORS.text }}>
-                <span style={{ width: 6, height: 6, background: COLORS.cyan, borderRadius: "50%", display: "inline-block" }} />
+                <span style={{ width: 6, height: 6, background: COLORS.cyan, borderRadius: "50%", display: "inline-block", boxShadow: "0 0 8px #00D4C8" }} />
                 {f}
               </div>
             ))}
           </div>
-          <a href="#contact" className="cta-btn" style={{ textDecoration: "none" }}>
-            Request Cortex Sandbox Access →
-          </a>
+          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+            <a href="https://teacher-management-system-chi.vercel.app/" target="_blank" rel="noreferrer" className="cta-btn" style={{ textDecoration: "none" }}>
+              Launch Live App Demo ↗
+            </a>
+            <a href="https://github.com/ShubhamAlapure/teacher_management_system" target="_blank" rel="noreferrer" className="ghost-btn" style={{ textDecoration: "none" }}>
+              GitHub Repo ↗
+            </a>
+          </div>
         </div>
 
-        {/* Interactive Live Triage Demo Component */}
-        <CortexDemoWidget />
+        {/* Interactive Live Teacher Management Operations Widget */}
+        <TeacherManagementDemoWidget />
       </section>
 
       {/* SOLUTIONS SECTION */}
@@ -1010,9 +1036,14 @@ export default function TerminalW() {
             </div>
 
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              {selectedProduct.demoUrl && (
+                <a href={selectedProduct.demoUrl} target="_blank" rel="noreferrer" className="cta-btn" style={{ textDecoration: "none" }}>
+                  Launch Live Demo ↗
+                </a>
+              )}
               {selectedProduct.githubUrl ? (
-                <a href={selectedProduct.githubUrl} target="_blank" rel="noreferrer" className="cta-btn" style={{ textDecoration: "none" }}>
-                  View PeerUP Repository on GitHub ↗
+                <a href={selectedProduct.githubUrl} target="_blank" rel="noreferrer" className="ghost-btn" style={{ textDecoration: "none" }}>
+                  View GitHub Repository ↗
                 </a>
               ) : (
                 <a href="#contact" onClick={() => setSelectedProduct(null)} className="cta-btn" style={{ textDecoration: "none" }}>
@@ -1048,7 +1079,7 @@ export default function TerminalW() {
                 h: "Products", 
                 links: [
                   { label: "PeerUP", href: "https://github.com/ShubhamAlapure/PeerUP", external: true },
-                  { label: "Cortex", href: "#products" },
+                  { label: "Teacher Management System", href: "https://teacher-management-system-chi.vercel.app/", external: true },
                   { label: "Ledgerline", href: "#products" },
                   { label: "Coursefield", href: "#products" }
                 ] 
