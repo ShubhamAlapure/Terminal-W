@@ -241,6 +241,44 @@ function Eyebrow({ children }) {
   );
 }
 
+// Creative Minimalistic Terminal W Technologies Logo Component
+function TerminalWLogo({ showSubtitle = true, size = 32 }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+      <div style={{
+        width: size,
+        height: size,
+        borderRadius: 8,
+        background: "linear-gradient(135deg, #0E1016 0%, #161B26 100%)",
+        border: "1px solid rgba(0, 212, 200, 0.4)",
+        boxShadow: "0 0 14px rgba(0, 212, 200, 0.18)",
+        display: "flex",
+        alignItems: "center",
+        justify: "center",
+        position: "relative",
+        flexShrink: 0,
+      }}>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 6L8.5 10.5L4 15" stroke="#00D4C8" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M10 7L13 16L15.5 11L18 16L21 7" stroke="#2A6AF0" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+          <circle cx="10" cy="16" r="1.2" fill="#00D4C8"/>
+        </svg>
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <span className="h-display" style={{ fontSize: 17, fontWeight: 700, letterSpacing: "-0.01em", color: COLORS.text, lineHeight: 1.15 }}>
+          TERMINAL W
+        </span>
+        {showSubtitle && (
+          <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, color: COLORS.cyan, letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600, marginTop: 1 }}>
+            TECHNOLOGIES
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // Interactive Teacher Management System Faculty Operations Simulator Widget
 function TeacherManagementDemoWidget() {
   const [logs, setLogs] = useState([
@@ -428,10 +466,7 @@ export default function TerminalW() {
           
           {/* Logo */}
           <a href="#" style={{ textDecoration: "none", color: COLORS.text }}>
-            <div className="h-display" style={{ fontSize: 18, fontWeight: 700, display: "flex", alignItems: "center", gap: 10, letterSpacing: "0.02em" }}>
-              <span style={{ width: 8, height: 8, background: COLORS.cyan, display: "inline-block", borderRadius: "1px", boxShadow: "0 0 10px #00D4C8" }} />
-              TERMINAL W
-            </div>
+            <TerminalWLogo showSubtitle={true} size={34} />
           </a>
 
           {/* Desktop Nav Links */}
@@ -1060,7 +1095,9 @@ export default function TerminalW() {
         <div className="container">
           <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr 1fr", gap: 40, marginBottom: 56 }} className="grid-4">
             <div>
-              <div className="h-display" style={{ fontSize: 18, fontWeight: 700, marginBottom: 14 }}>TERMINAL W</div>
+              <div style={{ marginBottom: 16 }}>
+                <TerminalWLogo showSubtitle={true} size={32} />
+              </div>
               <p style={{ fontSize: 13.5, color: COLORS.muted, lineHeight: 1.6, maxWidth: 280 }}>
                 A software solutions and product engineering company building technology products and digital solutions for forward-thinking organizations.
               </p>
