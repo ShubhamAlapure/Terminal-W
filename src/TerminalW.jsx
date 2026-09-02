@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
-const COLORS = {
+const DARK_COLORS = {
   bg: "#07080B",
   panel: "#0E1016",
   panel2: "#0B0D12",
@@ -15,6 +15,22 @@ const COLORS = {
   cyan: "#00D4C8",
   green: "#10B981",
   purple: "#8B5CF6",
+};
+
+const LIGHT_COLORS = {
+  bg: "#F8FAFC",
+  panel: "#FFFFFF",
+  panel2: "#F1F5F9",
+  text: "#0F172A",
+  muted: "#475569",
+  mutedDim: "#64748B",
+  border: "#E2E8F0",
+  borderStrong: "#CBD5E1",
+  blue: "#2A6AF0",
+  blueDim: "#DBEAFE",
+  cyan: "#008B82",
+  green: "#059669",
+  purple: "#7C3AED",
 };
 
 const NAV_LINKS = ["Products", "Solutions", "Services", "Technologies", "About", "Insights", "Contact"];
@@ -124,7 +140,7 @@ const METRICS = [
 
 const INDUSTRIES = ["Education", "Startups", "Healthcare", "Finance", "Retail", "Manufacturing", "Professional services", "Government / institutions", "Enterprise"];
 
-function useHeroScene(mountRef) {
+function useHeroScene(mountRef, isDarkMode) {
   useEffect(() => {
     const mount = mountRef.current;
     if (!mount) return;
@@ -144,7 +160,7 @@ function useHeroScene(mountRef) {
     scene.add(group);
 
     // Core: layered icosahedral wireframes
-    const coreColors = [0x2a6af0, 0x00d4c8, 0x3f4a63];
+    const coreColors = isDarkMode ? [0x2a6af0, 0x00d4c8, 0x3f4a63] : [0x2a6af0, 0x008b82, 0x94a3b8];
     const cores = [];
     [1.55, 1.95, 2.35].forEach((r, i) => {
       const geo = new THREE.IcosahedronGeometry(r, 1);
@@ -161,7 +177,7 @@ function useHeroScene(mountRef) {
 
     // Node points at icosahedron vertices
     const nodeGeo = new THREE.IcosahedronGeometry(1.55, 1);
-    const pointsMat = new THREE.PointsMaterial({ color: 0x00d4c8, size: 0.045, transparent: true, opacity: 0.9 });
+    const pointsMat = new THREE.PointsMaterial({ color: isDarkMode ? 0x00d4c8 : 0x008b82, size: 0.045, transparent: true, opacity: 0.9 });
     const points = new THREE.Points(nodeGeo, pointsMat);
     group.add(points);
 
@@ -178,7 +194,7 @@ function useHeroScene(mountRef) {
     }
     const particleGeo = new THREE.BufferGeometry();
     particleGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    const particleMat = new THREE.PointsMaterial({ color: 0x3f4a63, size: 0.03, transparent: true, opacity: 0.5 });
+    const particleMat = new THREE.PointsMaterial({ color: isDarkMode ? 0x3f4a63 : 0x64748b, size: 0.03, transparent: true, opacity: 0.5 });
     const particles = new THREE.Points(particleGeo, particleMat);
     scene.add(particles);
 
@@ -229,10 +245,10 @@ function useHeroScene(mountRef) {
       }
       renderer.dispose();
     };
-  }, [mountRef]);
+  }, [mountRef, isDarkMode]);
 }
 
-function Eyebrow({ children }) {
+function Eyebrow({ children, COLORS }) {
   return (
     <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, letterSpacing: "0.02em", color: COLORS.mutedDim, marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
       <span style={{ width: 14, height: 1, background: COLORS.borderStrong, display: "inline-block" }} />
@@ -242,16 +258,16 @@ function Eyebrow({ children }) {
 }
 
 // Creative Minimalistic Terminal W Technologies Logo Component
-function TerminalWLogo({ showSubtitle = true, size = 32 }) {
+function TerminalWLogo({ showSubtitle = true, size = 32, COLORS }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
       <div style={{
         width: size,
         height: size,
         borderRadius: 8,
-        background: "linear-gradient(135deg, #0E1016 0%, #161B26 100%)",
-        border: "1px solid rgba(0, 212, 200, 0.4)",
-        boxShadow: "0 0 14px rgba(0, 212, 200, 0.18)",
+        background: `linear-gradient(135deg, ${COLORS.panel} 0%, ${COLORS.panel2} 100%)`,
+        border: `1px solid ${COLORS.cyan}66`,
+        boxShadow: `0 0 14px ${COLORS.cyan}33`,
         display: "flex",
         alignItems: "center",
         justify: "center",
@@ -259,9 +275,9 @@ function TerminalWLogo({ showSubtitle = true, size = 32 }) {
         flexShrink: 0,
       }}>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 6L8.5 10.5L4 15" stroke="#00D4C8" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M10 7L13 16L15.5 11L18 16L21 7" stroke="#2A6AF0" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-          <circle cx="10" cy="16" r="1.2" fill="#00D4C8"/>
+          <path d="M4 6L8.5 10.5L4 15" stroke={COLORS.cyan} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M10 7L13 16L15.5 11L18 16L21 7" stroke={COLORS.blue} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+          <circle cx="10" cy="16" r="1.2" fill={COLORS.cyan}/>
         </svg>
       </div>
 
@@ -280,7 +296,7 @@ function TerminalWLogo({ showSubtitle = true, size = 32 }) {
 }
 
 // Interactive Teacher Management System Faculty Operations Simulator Widget
-function TeacherManagementDemoWidget() {
+function TeacherManagementDemoWidget({ COLORS }) {
   const [logs, setLogs] = useState([
     { id: 1, type: "FACULTY_VERIFIED", text: "Prof. S. Alapure registered to Department of Computer Science", time: "10:14:01" },
     { id: 2, type: "WORKLOAD_ALIGNED", text: "Allocated CS-401 (DBMS) & CS-401L Lab — 16 Credit Hours/wk", time: "10:14:02" },
@@ -319,7 +335,7 @@ function TeacherManagementDemoWidget() {
   }
 
   return (
-    <div className="card" style={{ padding: 0, overflow: "hidden", border: `1px solid ${COLORS.borderStrong}` }}>
+    <div className="card" style={{ padding: 0, overflow: "hidden", background: COLORS.panel, border: `1px solid ${COLORS.borderStrong}` }}>
       {/* Header Bar */}
       <div style={{
         background: COLORS.panel2,
@@ -347,15 +363,15 @@ function TeacherManagementDemoWidget() {
       </div>
 
       {/* Control Buttons */}
-      <div style={{ padding: "14px 18px", background: "rgba(14, 16, 22, 0.5)", borderBottom: `1px solid ${COLORS.border}`, display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
+      <div style={{ padding: "14px 18px", background: COLORS.panel, borderBottom: `1px solid ${COLORS.border}`, display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
         <span style={{ fontSize: 12, color: COLORS.mutedDim, fontFamily: "'IBM Plex Mono', monospace" }}>Test Workflow:</span>
-        <button onClick={() => runSimulation("onboarding")} className="ghost-btn" style={{ padding: "6px 12px", fontSize: 12, borderRadius: 4 }}>
+        <button onClick={() => runSimulation("onboarding")} className="ghost-btn" style={{ padding: "6px 12px", fontSize: 12, borderRadius: 4, color: COLORS.text, borderColor: COLORS.borderStrong }}>
           👨‍🏫 Faculty Onboarding
         </button>
-        <button onClick={() => runSimulation("workload")} className="ghost-btn" style={{ padding: "6px 12px", fontSize: 12, borderRadius: 4 }}>
+        <button onClick={() => runSimulation("workload")} className="ghost-btn" style={{ padding: "6px 12px", fontSize: 12, borderRadius: 4, color: COLORS.text, borderColor: COLORS.borderStrong }}>
           📚 Workload Allocation
         </button>
-        <button onClick={() => runSimulation("appraisal")} className="ghost-btn" style={{ padding: "6px 12px", fontSize: 12, borderRadius: 4 }}>
+        <button onClick={() => runSimulation("appraisal")} className="ghost-btn" style={{ padding: "6px 12px", fontSize: 12, borderRadius: 4, color: COLORS.text, borderColor: COLORS.borderStrong }}>
           📊 Appraisal & Research Log
         </button>
       </div>
@@ -375,7 +391,7 @@ function TeacherManagementDemoWidget() {
           {logs.map((log) => (
             <div key={log.id} style={{
               background: COLORS.bg,
-              border: `1px solid ${log.type.includes('VERIFIED') || log.type.includes('PASS') ? 'rgba(16, 185, 129, 0.3)' : log.type.includes('RESEARCH') || log.type.includes('PAPER') ? COLORS.blueDim : COLORS.border}`,
+              border: `1px solid ${log.type.includes('VERIFIED') || log.type.includes('PASS') ? 'rgba(16, 185, 129, 0.4)' : log.type.includes('RESEARCH') || log.type.includes('PAPER') ? COLORS.blueDim : COLORS.border}`,
               borderRadius: 6,
               padding: "10px 14px",
               display: "flex",
@@ -411,6 +427,14 @@ function TeacherManagementDemoWidget() {
 }
 
 export default function TerminalW() {
+  const [theme, setTheme] = useState("dark");
+  const isDarkMode = theme === "dark";
+  const COLORS = isDarkMode ? DARK_COLORS : LIGHT_COLORS;
+
+  function toggleTheme() {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  }
+
   const heroRef = useRef(null);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -421,7 +445,7 @@ export default function TerminalW() {
   const [formState, setFormState] = useState("idle");
   const [formErrors, setFormErrors] = useState({});
 
-  useHeroScene(heroRef);
+  useHeroScene(heroRef, isDarkMode);
 
   useEffect(() => {
     function onScroll() {
@@ -451,29 +475,65 @@ export default function TerminalW() {
     : TECH.filter(t => t.group.toLowerCase() === selectedTechGroup.toLowerCase());
 
   return (
-    <div style={{ background: COLORS.bg, color: COLORS.text, fontFamily: "'Inter', system-ui, sans-serif", minHeight: "100vh", overflowX: "hidden" }}>
+    <div style={{ 
+      background: COLORS.bg, 
+      color: COLORS.text, 
+      fontFamily: "'Inter', system-ui, sans-serif", 
+      minHeight: "100vh", 
+      overflowX: "hidden",
+      transition: "background-color 0.3s ease, color 0.3s ease" 
+    }}>
       
       {/* NAV BAR */}
       <nav style={{
         position: "sticky", top: 0, zIndex: 50,
-        background: scrolled ? "rgba(7,8,11,0.85)" : "rgba(7,8,11,0.4)",
+        background: scrolled 
+          ? (isDarkMode ? "rgba(7,8,11,0.85)" : "rgba(248,250,252,0.88)") 
+          : (isDarkMode ? "rgba(7,8,11,0.4)" : "rgba(248,250,252,0.6)"),
         backdropFilter: "blur(14px)",
         WebkitBackdropFilter: "blur(14px)",
-        borderBottom: scrolled ? `1px solid ${COLORS.border}` : "1px solid rgba(27, 31, 41, 0.5)",
+        borderBottom: scrolled ? `1px solid ${COLORS.border}` : "1px solid transparent",
         transition: "all .25s ease",
       }}>
         <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
           
           {/* Logo */}
           <a href="#" style={{ textDecoration: "none", color: COLORS.text }}>
-            <TerminalWLogo showSubtitle={true} size={34} />
+            <TerminalWLogo showSubtitle={true} size={34} COLORS={COLORS} />
           </a>
 
-          {/* Desktop Nav Links */}
-          <div style={{ display: "flex", gap: 28, alignItems: "center" }} className="desktop-nav">
+          {/* Desktop Nav Links & Theme Toggle */}
+          <div style={{ display: "flex", gap: 24, alignItems: "center" }} className="desktop-nav">
             {NAV_LINKS.map((l) => (
-              <a key={l} className="navlink" href={`#${l.toLowerCase()}`}>{l}</a>
+              <a key={l} className="navlink" href={`#${l.toLowerCase()}`} style={{ color: COLORS.muted }}>{l}</a>
             ))}
+
+            {/* Theme Toggle Button directly after Contact link */}
+            <button
+              onClick={toggleTheme}
+              title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              aria-label="Toggle theme"
+              style={{
+                background: isDarkMode ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.05)",
+                border: `1px solid ${COLORS.borderStrong}`,
+                color: COLORS.text,
+                padding: "6px 14px",
+                borderRadius: "20px",
+                fontSize: 12.5,
+                fontWeight: 500,
+                cursor: "pointer",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                fontFamily: "'IBM Plex Mono', monospace",
+                transition: "all 0.2s ease"
+              }}
+              onMouseOver={(e) => e.currentTarget.style.borderColor = COLORS.cyan}
+              onMouseOut={(e) => e.currentTarget.style.borderColor = COLORS.borderStrong}
+            >
+              <span>{isDarkMode ? "☀️" : "🌙"}</span>
+              <span>{isDarkMode ? "Light" : "Dark"}</span>
+            </button>
           </div>
 
           {/* Desktop CTA & Mobile Toggle */}
@@ -522,6 +582,25 @@ export default function TerminalW() {
                 {l}
               </a>
             ))}
+            <button
+              onClick={toggleTheme}
+              style={{
+                background: COLORS.panel2,
+                border: `1px solid ${COLORS.borderStrong}`,
+                color: COLORS.text,
+                padding: "10px 16px",
+                borderRadius: 6,
+                fontSize: 14,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                fontFamily: "'IBM Plex Mono', monospace",
+                marginTop: 8
+              }}
+            >
+              <span>{isDarkMode ? "☀️ Switch to Light Mode" : "🌙 Switch to Dark Mode"}</span>
+            </button>
           </div>
         )}
       </nav>
@@ -534,18 +613,18 @@ export default function TerminalW() {
           backgroundSize: "56px 56px",
           maskImage: "radial-gradient(ellipse 70% 60% at 30% 40%, black, transparent)",
           WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 30% 40%, black, transparent)",
-          opacity: 0.4,
+          opacity: isDarkMode ? 0.4 : 0.6,
           pointerEvents: "none"
         }} />
         <div className="container hero-grid" style={{ position: "relative", display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: 32, alignItems: "center", paddingTop: 40, paddingBottom: 40 }}>
           <div>
             <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: COLORS.cyan, marginBottom: 20, display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: COLORS.cyan, display: "inline-block", boxShadow: "0 0 8px #00D4C8" }} />
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: COLORS.cyan, display: "inline-block", boxShadow: `0 0 8px ${COLORS.cyan}` }} />
               SYS.STATUS — CREATORS OF PEERUP & TEACHER MANAGEMENT SYSTEM
             </div>
             <h1 className="h-display" style={{ fontSize: "clamp(42px, 5vw, 64px)", lineHeight: 1.04, fontWeight: 700, margin: "0 0 26px" }}>
               Engineering<br />
-              <span style={{ background: "linear-gradient(135deg, #F3F5F8 30%, #8890A0 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              <span style={{ background: isDarkMode ? "linear-gradient(135deg, #F3F5F8 30%, #8890A0 100%)" : "linear-gradient(135deg, #0F172A 30%, #475569 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
                 what's next.
               </span>
             </h1>
@@ -554,7 +633,7 @@ export default function TerminalW() {
             </p>
             <div style={{ display: "flex", gap: 14, marginBottom: 44, flexWrap: "wrap" }}>
               <a href="#products" className="cta-btn" style={{ textDecoration: "none" }}>Explore Live Products</a>
-              <a href="#contact" className="ghost-btn" style={{ textDecoration: "none" }}>Start a project</a>
+              <a href="#contact" className="ghost-btn" style={{ textDecoration: "none", color: COLORS.text, borderColor: COLORS.borderStrong }}>Start a project</a>
             </div>
             <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: COLORS.mutedDim, letterSpacing: "0.02em" }}>
               Software / AI / Product engineering / Digital transformation
@@ -585,8 +664,8 @@ export default function TerminalW() {
       {/* ABOUT SECTION */}
       <section id="about" className="container grid-2" style={{ padding: "120px 32px", display: "grid", gridTemplateColumns: "0.9fr 1.1fr", gap: 64 }}>
         <div>
-          <Eyebrow>IDX.01 — ABOUT</Eyebrow>
-          <h2 className="h-display" style={{ fontSize: 38, fontWeight: 600, lineHeight: 1.15, margin: 0 }}>
+          <Eyebrow COLORS={COLORS}>IDX.01 — ABOUT</Eyebrow>
+          <h2 className="h-display" style={{ fontSize: 38, fontWeight: 600, lineHeight: 1.15, margin: 0, color: COLORS.text }}>
             Technology with purpose and precision.
           </h2>
         </div>
@@ -606,9 +685,9 @@ export default function TerminalW() {
       {/* PRODUCTS SECTION */}
       <section id="products" style={{ borderTop: `1px solid ${COLORS.border}`, background: COLORS.panel2, padding: "120px 0" }}>
         <div className="container">
-          <Eyebrow>IDX.02 — PRODUCTS</Eyebrow>
+          <Eyebrow COLORS={COLORS}>IDX.02 — PRODUCTS</Eyebrow>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 56, flexWrap: "wrap", gap: 20 }}>
-            <h2 className="h-display" style={{ fontSize: 38, fontWeight: 600, margin: 0, maxWidth: 520 }}>
+            <h2 className="h-display" style={{ fontSize: 38, fontWeight: 600, margin: 0, maxWidth: 520, color: COLORS.text }}>
               Products built to make an impact.
             </h2>
             <p style={{ color: COLORS.muted, fontSize: 15, maxWidth: 340, margin: 0, lineHeight: 1.6 }}>
@@ -623,8 +702,9 @@ export default function TerminalW() {
                 flexDirection: "column", 
                 minHeight: 340, 
                 position: "relative",
+                background: COLORS.panel,
                 border: p.featured ? `1px solid ${COLORS.cyan}` : `1px solid ${COLORS.border}`,
-                boxShadow: p.featured ? "0 0 20px rgba(0, 212, 200, 0.1)" : "none"
+                boxShadow: p.featured ? `0 0 20px ${COLORS.cyan}22` : "none"
               }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
                   <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: COLORS.mutedDim }}>{p.idx}</span>
@@ -633,14 +713,14 @@ export default function TerminalW() {
                     fontFamily: "'IBM Plex Mono', monospace", 
                     color: p.featured ? COLORS.cyan : COLORS.green, 
                     border: `1px solid ${p.featured ? COLORS.cyan : COLORS.blueDim}`, 
-                    background: p.featured ? "rgba(0, 212, 200, 0.1)" : "rgba(42, 106, 240, 0.08)", 
+                    background: p.featured ? `${COLORS.cyan}15` : "rgba(42, 106, 240, 0.08)", 
                     padding: "3px 8px", 
                     borderRadius: 3 
                   }}>
                     {p.status}
                   </span>
                 </div>
-                <h3 className="h-display" style={{ fontSize: 22, fontWeight: 600, margin: "0 0 6px", display: "flex", alignItems: "center", gap: 8 }}>
+                <h3 className="h-display" style={{ fontSize: 22, fontWeight: 600, margin: "0 0 6px", display: "flex", alignItems: "center", gap: 8, color: COLORS.text }}>
                   {p.name}
                   {p.demoUrl && (
                     <a href={p.demoUrl} target="_blank" rel="noreferrer" title="Launch Live Product Demo" style={{ color: COLORS.cyan, textDecoration: "none", fontSize: 16 }}>
@@ -663,7 +743,7 @@ export default function TerminalW() {
                   <button 
                     onClick={() => setSelectedProduct(p)}
                     className="ghost-btn"
-                    style={{ flex: 1, justifyContent: "center", fontSize: 12, padding: "8px 10px" }}
+                    style={{ flex: 1, justifyContent: "center", fontSize: 12, padding: "8px 10px", color: COLORS.text, borderColor: COLORS.borderStrong }}
                   >
                     Specs →
                   </button>
@@ -684,7 +764,7 @@ export default function TerminalW() {
                       target="_blank" 
                       rel="noreferrer"
                       className="ghost-btn"
-                      style={{ padding: "8px 10px", fontSize: 12, textDecoration: "none" }}
+                      style={{ padding: "8px 10px", fontSize: 12, textDecoration: "none", color: COLORS.text, borderColor: COLORS.borderStrong }}
                     >
                       GitHub ↗
                     </a>
@@ -699,8 +779,8 @@ export default function TerminalW() {
       {/* FLAGSHIP SPOTLIGHT — PEERUP PLATFORM */}
       <section className="container grid-2" style={{ padding: "120px 32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
         <div>
-          <Eyebrow>FLAGSHIP PRODUCT — PEERUP</Eyebrow>
-          <h2 className="h-display" style={{ fontSize: 38, fontWeight: 700, margin: "0 0 20px" }}>
+          <Eyebrow COLORS={COLORS}>FLAGSHIP PRODUCT — PEERUP</Eyebrow>
+          <h2 className="h-display" style={{ fontSize: 38, fontWeight: 700, margin: "0 0 20px", color: COLORS.text }}>
             PeerUP — Peer Learning Network
           </h2>
           <p style={{ fontSize: 16, color: COLORS.muted, lineHeight: 1.7, margin: "0 0 24px" }}>
@@ -716,7 +796,7 @@ export default function TerminalW() {
               "Community Knowledge Hub"
             ].map((f) => (
               <div key={f} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 14, color: COLORS.text }}>
-                <span style={{ width: 6, height: 6, background: COLORS.cyan, borderRadius: "50%", display: "inline-block", boxShadow: "0 0 8px #00D4C8" }} />
+                <span style={{ width: 6, height: 6, background: COLORS.cyan, borderRadius: "50%", display: "inline-block", boxShadow: `0 0 8px ${COLORS.cyan}` }} />
                 {f}
               </div>
             ))}
@@ -725,18 +805,18 @@ export default function TerminalW() {
             <a href="https://github.com/ShubhamAlapure/PeerUP" target="_blank" rel="noreferrer" className="cta-btn" style={{ textDecoration: "none" }}>
               Explore PeerUP on GitHub ↗
             </a>
-            <button onClick={() => setSelectedProduct(PRODUCTS[0])} className="ghost-btn">
+            <button onClick={() => setSelectedProduct(PRODUCTS[0])} className="ghost-btn" style={{ color: COLORS.text, borderColor: COLORS.borderStrong }}>
               View Product Specs →
             </button>
           </div>
         </div>
 
         {/* PeerUP Visual Feature Card */}
-        <div className="card" style={{ padding: 32, background: `linear-gradient(145deg, ${COLORS.panel}, ${COLORS.panel2})`, border: `1px solid ${COLORS.cyan}` }}>
+        <div className="card" style={{ padding: 32, background: COLORS.panel, border: `1px solid ${COLORS.cyan}` }}>
           <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: COLORS.cyan, marginBottom: 16 }}>
             {"{ peerup.community_mesh }"}
           </div>
-          <h3 className="h-display" style={{ fontSize: 24, fontWeight: 600, marginBottom: 12 }}>
+          <h3 className="h-display" style={{ fontSize: 24, fontWeight: 600, marginBottom: 12, color: COLORS.text }}>
             Empowering 10,000+ Peer Connections
           </h3>
           <p style={{ fontSize: 14.5, color: COLORS.muted, lineHeight: 1.65, marginBottom: 24 }}>
@@ -749,15 +829,15 @@ export default function TerminalW() {
               <span style={{ color: COLORS.green }}>● 142 ROOMS LIVE</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              <div style={{ background: COLORS.panel2, padding: "8px 12px", borderRadius: 4, display: "flex", justifyContent: "space-between", fontSize: 13 }}>
+              <div style={{ background: COLORS.panel2, padding: "8px 12px", borderRadius: 4, display: "flex", justifyContent: "space-between", fontSize: 13, color: COLORS.text }}>
                 <span>⚡ React & Three.js Canvas Deep-Dive</span>
                 <span style={{ color: COLORS.cyan }}>8 peers</span>
               </div>
-              <div style={{ background: COLORS.panel2, padding: "8px 12px", borderRadius: 4, display: "flex", justifyContent: "space-between", fontSize: 13 }}>
+              <div style={{ background: COLORS.panel2, padding: "8px 12px", borderRadius: 4, display: "flex", justifyContent: "space-between", fontSize: 13, color: COLORS.text }}>
                 <span>🧠 System Design & Distributed DBs</span>
                 <span style={{ color: COLORS.cyan }}>12 peers</span>
               </div>
-              <div style={{ background: COLORS.panel2, padding: "8px 12px", borderRadius: 4, display: "flex", justifyContent: "space-between", fontSize: 13 }}>
+              <div style={{ background: COLORS.panel2, padding: "8px 12px", borderRadius: 4, display: "flex", justifyContent: "space-between", fontSize: 13, color: COLORS.text }}>
                 <span>🚀 Open Source PR Review Session</span>
                 <span style={{ color: COLORS.cyan }}>15 peers</span>
               </div>
@@ -766,11 +846,11 @@ export default function TerminalW() {
         </div>
       </section>
 
-      {/* TEACHER MANAGEMENT SYSTEM — LIVE INTERACTIVE DEMO (REPLACED CORTEX) */}
+      {/* TEACHER MANAGEMENT SYSTEM — LIVE INTERACTIVE DEMO */}
       <section className="container grid-2" style={{ padding: "120px 32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
         <div>
-          <Eyebrow>ACADEMIC OPERATING SYSTEM — TEACHER MANAGEMENT</Eyebrow>
-          <h2 className="h-display" style={{ fontSize: 36, fontWeight: 600, margin: "0 0 20px" }}>
+          <Eyebrow COLORS={COLORS}>ACADEMIC OPERATING SYSTEM — TEACHER MANAGEMENT</Eyebrow>
+          <h2 className="h-display" style={{ fontSize: 36, fontWeight: 600, margin: "0 0 20px", color: COLORS.text }}>
             Teacher Lifecycle Management System
           </h2>
           <p style={{ fontSize: 16, color: COLORS.muted, lineHeight: 1.7, margin: "0 0 24px" }}>
@@ -786,7 +866,7 @@ export default function TerminalW() {
               "AICTE / UGC Norms Compliance"
             ].map((f) => (
               <div key={f} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 14, color: COLORS.text }}>
-                <span style={{ width: 6, height: 6, background: COLORS.cyan, borderRadius: "50%", display: "inline-block", boxShadow: "0 0 8px #00D4C8" }} />
+                <span style={{ width: 6, height: 6, background: COLORS.cyan, borderRadius: "50%", display: "inline-block", boxShadow: `0 0 8px ${COLORS.cyan}` }} />
                 {f}
               </div>
             ))}
@@ -795,28 +875,28 @@ export default function TerminalW() {
             <a href="https://teacher-management-system-chi.vercel.app/" target="_blank" rel="noreferrer" className="cta-btn" style={{ textDecoration: "none" }}>
               Launch Live App Demo ↗
             </a>
-            <a href="https://github.com/ShubhamAlapure/teacher_management_system" target="_blank" rel="noreferrer" className="ghost-btn" style={{ textDecoration: "none" }}>
+            <a href="https://github.com/ShubhamAlapure/teacher_management_system" target="_blank" rel="noreferrer" className="ghost-btn" style={{ textDecoration: "none", color: COLORS.text, borderColor: COLORS.borderStrong }}>
               GitHub Repo ↗
             </a>
           </div>
         </div>
 
         {/* Interactive Live Teacher Management Operations Widget */}
-        <TeacherManagementDemoWidget />
+        <TeacherManagementDemoWidget COLORS={COLORS} />
       </section>
 
       {/* SOLUTIONS SECTION */}
       <section id="solutions" style={{ borderTop: `1px solid ${COLORS.border}`, padding: "120px 0" }}>
         <div className="container">
-          <Eyebrow>IDX.04 — SOLUTIONS</Eyebrow>
-          <h2 className="h-display" style={{ fontSize: 38, fontWeight: 600, margin: "0 0 56px", maxWidth: 560 }}>
+          <Eyebrow COLORS={COLORS}>IDX.04 — SOLUTIONS</Eyebrow>
+          <h2 className="h-display" style={{ fontSize: 38, fontWeight: 600, margin: "0 0 56px", maxWidth: 560, color: COLORS.text }}>
             Solutions for real-world challenges.
           </h2>
           <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: COLORS.border, border: `1px solid ${COLORS.border}` }}>
             {SOLUTIONS.map((s) => (
-              <div key={s.name} style={{ background: COLORS.bg, padding: 32, transition: "background 0.2s ease" }}>
+              <div key={s.name} style={{ background: COLORS.panel, padding: 32, transition: "background 0.2s ease" }}>
                 <div style={{ fontSize: 24, marginBottom: 14 }}>{s.icon}</div>
-                <h3 style={{ fontSize: 18, fontWeight: 600, margin: "0 0 10px" }}>{s.name}</h3>
+                <h3 style={{ fontSize: 18, fontWeight: 600, margin: "0 0 10px", color: COLORS.text }}>{s.name}</h3>
                 <p style={{ fontSize: 14, color: COLORS.muted, lineHeight: 1.6, margin: 0 }}>{s.desc}</p>
               </div>
             ))}
@@ -827,13 +907,13 @@ export default function TerminalW() {
       {/* SERVICES SECTION */}
       <section id="services" style={{ borderTop: `1px solid ${COLORS.border}`, background: COLORS.panel2, padding: "120px 0" }}>
         <div className="container">
-          <Eyebrow>IDX.05 — SERVICES</Eyebrow>
-          <h2 className="h-display" style={{ fontSize: 38, fontWeight: 600, margin: "0 0 56px", maxWidth: 560 }}>
+          <Eyebrow COLORS={COLORS}>IDX.05 — SERVICES</Eyebrow>
+          <h2 className="h-display" style={{ fontSize: 38, fontWeight: 600, margin: "0 0 56px", maxWidth: 560, color: COLORS.text }}>
             What we build end-to-end.
           </h2>
           <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
             {SERVICES.map((s) => (
-              <div key={s.name} className="card" style={{ padding: 28 }}>
+              <div key={s.name} className="card" style={{ padding: 28, background: COLORS.panel }}>
                 <h3 style={{ fontSize: 17, fontWeight: 600, margin: "0 0 10px", color: COLORS.text }}>{s.name}</h3>
                 <p style={{ fontSize: 14, color: COLORS.muted, lineHeight: 1.6, margin: 0 }}>{s.desc}</p>
               </div>
@@ -844,15 +924,15 @@ export default function TerminalW() {
 
       {/* PROCESS SECTION */}
       <section className="container" style={{ padding: "120px 32px" }}>
-        <Eyebrow>IDX.06 — HOW WE WORK</Eyebrow>
-        <h2 className="h-display" style={{ fontSize: 38, fontWeight: 600, margin: "0 0 56px", maxWidth: 560 }}>
+        <Eyebrow COLORS={COLORS}>IDX.06 — HOW WE WORK</Eyebrow>
+        <h2 className="h-display" style={{ fontSize: 38, fontWeight: 600, margin: "0 0 56px", maxWidth: 560, color: COLORS.text }}>
           From idea to production impact.
         </h2>
         <div className="grid-6" style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 0, borderTop: `1px solid ${COLORS.border}` }}>
           {PROCESS.map((s, i) => (
             <div key={s.n} style={{ padding: "28px 18px 0", borderLeft: i === 0 ? "none" : `1px solid ${COLORS.border}` }}>
               <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, color: COLORS.cyan, marginBottom: 14 }}>{s.n}</div>
-              <h3 style={{ fontSize: 16, fontWeight: 600, margin: "0 0 8px" }}>{s.name}</h3>
+              <h3 style={{ fontSize: 16, fontWeight: 600, margin: "0 0 8px", color: COLORS.text }}>{s.name}</h3>
               <p style={{ fontSize: 13, color: COLORS.muted, lineHeight: 1.55, margin: 0 }}>{s.desc}</p>
             </div>
           ))}
@@ -862,9 +942,9 @@ export default function TerminalW() {
       {/* TECHNOLOGY STACK SECTION */}
       <section id="technologies" style={{ borderTop: `1px solid ${COLORS.border}`, padding: "120px 0" }}>
         <div className="container">
-          <Eyebrow>IDX.07 — TECHNOLOGY</Eyebrow>
+          <Eyebrow COLORS={COLORS}>IDX.07 — TECHNOLOGY</Eyebrow>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 20, marginBottom: 44 }}>
-            <h2 className="h-display" style={{ fontSize: 38, fontWeight: 600, margin: 0, maxWidth: 560 }}>
+            <h2 className="h-display" style={{ fontSize: 38, fontWeight: 600, margin: 0, maxWidth: 560, color: COLORS.text }}>
               Built with modern stack.
             </h2>
             
@@ -894,7 +974,7 @@ export default function TerminalW() {
 
           <div className="grid-5" style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 28 }}>
             {filteredTech.map((g) => (
-              <div key={g.group} className="card" style={{ padding: 24 }}>
+              <div key={g.group} className="card" style={{ padding: 24, background: COLORS.panel }}>
                 <div style={{ fontSize: 12, color: COLORS.cyan, fontFamily: "'IBM Plex Mono', monospace", marginBottom: 16, textTransform: "uppercase" }}>
                   {g.group}
                 </div>
@@ -915,14 +995,14 @@ export default function TerminalW() {
       {/* WHY TERMINAL W */}
       <section style={{ borderTop: `1px solid ${COLORS.border}`, background: COLORS.panel2, padding: "120px 0" }}>
         <div className="container">
-          <Eyebrow>IDX.08 — WHY TERMINAL W</Eyebrow>
-          <h2 className="h-display" style={{ fontSize: 38, fontWeight: 600, margin: "0 0 56px", maxWidth: 560 }}>
+          <Eyebrow COLORS={COLORS}>IDX.08 — WHY TERMINAL W</Eyebrow>
+          <h2 className="h-display" style={{ fontSize: 38, fontWeight: 600, margin: "0 0 56px", maxWidth: 560, color: COLORS.text }}>
             Why build with Terminal W?
           </h2>
           <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
             {WHY.map((w) => (
-              <div key={w.name} className="card" style={{ padding: 28 }}>
-                <h3 style={{ fontSize: 17, fontWeight: 600, margin: "0 0 10px" }}>{w.name}</h3>
+              <div key={w.name} className="card" style={{ padding: 28, background: COLORS.panel }}>
+                <h3 style={{ fontSize: 17, fontWeight: 600, margin: "0 0 10px", color: COLORS.text }}>{w.name}</h3>
                 <p style={{ fontSize: 14, color: COLORS.muted, lineHeight: 1.6, margin: 0 }}>{w.desc}</p>
               </div>
             ))}
@@ -945,7 +1025,7 @@ export default function TerminalW() {
       {/* INDUSTRIES */}
       <section style={{ borderTop: `1px solid ${COLORS.border}`, padding: "80px 0" }}>
         <div className="container">
-          <Eyebrow>IDX.09 — INDUSTRIES</Eyebrow>
+          <Eyebrow COLORS={COLORS}>IDX.09 — INDUSTRIES</Eyebrow>
           <p style={{ fontSize: 15, color: COLORS.muted, margin: "0 0 24px" }}>Technology solutions designed for diverse domain challenges —</p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
             {INDUSTRIES.map((i) => (
@@ -961,8 +1041,8 @@ export default function TerminalW() {
       <section id="contact" style={{ borderTop: `1px solid ${COLORS.border}`, background: COLORS.panel2, padding: "120px 0" }}>
         <div className="container grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64 }}>
           <div>
-            <Eyebrow>IDX.10 — CONTACT</Eyebrow>
-            <h2 className="h-display" style={{ fontSize: 40, fontWeight: 600, lineHeight: 1.15, margin: "0 0 20px" }}>
+            <Eyebrow COLORS={COLORS}>IDX.10 — CONTACT</Eyebrow>
+            <h2 className="h-display" style={{ fontSize: 40, fontWeight: 600, lineHeight: 1.15, margin: "0 0 20px", color: COLORS.text }}>
               Have an idea?<br />Let's build it.
             </h2>
             <p style={{ fontSize: 16, color: COLORS.muted, lineHeight: 1.7, maxWidth: 420, marginBottom: 32 }}>
@@ -990,13 +1070,13 @@ export default function TerminalW() {
 
           <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {formState === "sent" ? (
-              <div style={{ padding: 32, border: `1px solid ${COLORS.cyan}`, background: "rgba(0, 212, 200, 0.05)", borderRadius: 6, fontSize: 15, color: COLORS.text }}>
+              <div style={{ padding: 32, border: `1px solid ${COLORS.cyan}`, background: `${COLORS.cyan}10`, borderRadius: 6, fontSize: 15, color: COLORS.text }}>
                 <div style={{ fontSize: 20, color: COLORS.cyan, fontWeight: 600, marginBottom: 8 }}>✓ Message Received</div>
                 Thank you for reaching out. A Terminal W engineer will be in touch within 24 hours.
                 <button 
                   onClick={() => setFormState("idle")} 
                   className="ghost-btn" 
-                  style={{ marginTop: 20, display: "block", fontSize: 13 }}
+                  style={{ marginTop: 20, display: "block", fontSize: 13, color: COLORS.text, borderColor: COLORS.borderStrong }}
                 >
                   Send another inquiry
                 </button>
@@ -1004,15 +1084,15 @@ export default function TerminalW() {
             ) : (
               <>
                 <div>
-                  <input placeholder="Your name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+                  <input placeholder="Your name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} style={{ background: COLORS.panel2, border: `1px solid ${COLORS.border}`, color: COLORS.text }} />
                   {formErrors.name && <div style={{ color: "#E24B4A", fontSize: 12.5, marginTop: 6 }}>{formErrors.name}</div>}
                 </div>
-                <input placeholder="Organization / Company" value={form.org} onChange={(e) => setForm({ ...form, org: e.target.value })} />
+                <input placeholder="Organization / Company" value={form.org} onChange={(e) => setForm({ ...form, org: e.target.value })} style={{ background: COLORS.panel2, border: `1px solid ${COLORS.border}`, color: COLORS.text }} />
                 <div>
-                  <input placeholder="Email address" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+                  <input placeholder="Email address" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} style={{ background: COLORS.panel2, border: `1px solid ${COLORS.border}`, color: COLORS.text }} />
                   {formErrors.email && <div style={{ color: "#E24B4A", fontSize: 12.5, marginTop: 6 }}>{formErrors.email}</div>}
                 </div>
-                <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })}>
+                <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} style={{ background: COLORS.panel2, border: `1px solid ${COLORS.border}`, color: COLORS.text }}>
                   <option value="">Select project scope</option>
                   <option>New AI or Software product</option>
                   <option>Custom platform modernization</option>
@@ -1020,7 +1100,7 @@ export default function TerminalW() {
                   <option>Technical Advisory & Design</option>
                 </select>
                 <div>
-                  <textarea rows={4} placeholder="Tell us about your project or technical challenge" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
+                  <textarea rows={4} placeholder="Tell us about your project or technical challenge" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} style={{ background: COLORS.panel2, border: `1px solid ${COLORS.border}`, color: COLORS.text }} />
                   {formErrors.message && <div style={{ color: "#E24B4A", fontSize: 12.5, marginTop: 6 }}>{formErrors.message}</div>}
                 </div>
                 <button className="cta-btn" type="submit" disabled={formState === "submitting"} style={{ alignSelf: "flex-start", opacity: formState === "submitting" ? 0.7 : 1 }}>
@@ -1037,7 +1117,7 @@ export default function TerminalW() {
         <div style={{
           position: "fixed",
           inset: 0,
-          background: "rgba(0, 0, 0, 0.8)",
+          background: isDarkMode ? "rgba(0, 0, 0, 0.85)" : "rgba(15, 23, 42, 0.65)",
           backdropFilter: "blur(8px)",
           zIndex: 100,
           display: "flex",
@@ -1053,7 +1133,7 @@ export default function TerminalW() {
               ✕
             </button>
             <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: COLORS.cyan, marginBottom: 8 }}>{selectedProduct.idx} / {selectedProduct.category}</div>
-            <h2 className="h-display" style={{ fontSize: 32, fontWeight: 700, margin: "0 0 12px" }}>{selectedProduct.name}</h2>
+            <h2 className="h-display" style={{ fontSize: 32, fontWeight: 700, margin: "0 0 12px", color: COLORS.text }}>{selectedProduct.name}</h2>
             <div style={{ fontSize: 13, fontFamily: "'IBM Plex Mono', monospace", color: COLORS.green, marginBottom: 20 }}>
               Key Metric: {selectedProduct.metrics}
             </div>
@@ -1077,7 +1157,7 @@ export default function TerminalW() {
                 </a>
               )}
               {selectedProduct.githubUrl ? (
-                <a href={selectedProduct.githubUrl} target="_blank" rel="noreferrer" className="ghost-btn" style={{ textDecoration: "none" }}>
+                <a href={selectedProduct.githubUrl} target="_blank" rel="noreferrer" className="ghost-btn" style={{ textDecoration: "none", color: COLORS.text, borderColor: COLORS.borderStrong }}>
                   View GitHub Repository ↗
                 </a>
               ) : (
@@ -1091,12 +1171,12 @@ export default function TerminalW() {
       )}
 
       {/* FOOTER */}
-      <footer style={{ borderTop: `1px solid ${COLORS.border}`, padding: "72px 0 32px" }}>
+      <footer style={{ borderTop: `1px solid ${COLORS.border}`, padding: "72px 0 32px", background: COLORS.bg }}>
         <div className="container">
           <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr 1fr", gap: 40, marginBottom: 56 }} className="grid-4">
             <div>
               <div style={{ marginBottom: 16 }}>
-                <TerminalWLogo showSubtitle={true} size={32} />
+                <TerminalWLogo showSubtitle={true} size={32} COLORS={COLORS} />
               </div>
               <p style={{ fontSize: 13.5, color: COLORS.muted, lineHeight: 1.6, maxWidth: 280 }}>
                 A software solutions and product engineering company building technology products and digital solutions for forward-thinking organizations.
